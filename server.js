@@ -13,14 +13,16 @@ app.use(bodyParser.json());
 app.use('/mentor', mentorRoutes);
 app.use('/student', studentRoutes);
 
+
+require('dotenv').config();
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/mentor-student-db')
-  .then(() => {
-    console.log('Connected to MongoDB');
-  })
-  .catch((err) => {
-    console.error('Error connecting to MongoDB:', err);
-  });
+const mongoose = require('mongoose');
+
+const mongoURI = process.env.MONGO_URI;
+
+mongoose.connect(mongoURI)
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log('MongoDB connection error:', err));
 
 
 // Start the server
